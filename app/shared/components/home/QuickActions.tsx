@@ -1,12 +1,9 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
 import { CameraIcon, ImageIcon } from '@/app/shared/components/Icons';
+import useTranslate from '../../hooks/useTranslate';
 
 export const QuickActions: React.FC = () => {
-  const language = useSelector((state: RootState) => state.settings.language);
-  const t = getTranslation(language);
+  const { t } = useTranslate();
 
   return (
     <div className="grid grid-cols-4 gap-2 px-4 mb-6">

@@ -1,18 +1,11 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setTheme, RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
 import { SunIcon, MoonIcon } from '@/app/shared/components/Icons';
-import { Theme } from '@/app/shared/types/types';
+import useTranslate from '../../hooks/useTranslate';
+import useSettings from '../../hooks/useSettings';
 
 export const ThemeSection: React.FC = () => {
-  const dispatch = useDispatch();
-  const { language, theme } = useSelector((state: RootState) => state.settings);
-  const t = getTranslation(language);
-
-  const handleThemeChange = (newTheme: Theme) => {
-    dispatch(setTheme(newTheme));
-  };
+  const { t } = useTranslate();
+  const { theme, setTheme } = useSettings();
 
   return (
     <section>
@@ -22,7 +15,7 @@ export const ThemeSection: React.FC = () => {
       </div>
       <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-1.5 flex shadow-inner">
         <button
-          onClick={() => handleThemeChange('light')}
+          onClick={() => setTheme('light')}
           className={`flex-1 flex items-center justify-center py-3 rounded-xl text-sm font-medium transition-all ${
             theme === 'light' 
               ? 'bg-white dark:bg-slate-700 shadow-md text-slate-900 dark:text-white' 
@@ -33,7 +26,7 @@ export const ThemeSection: React.FC = () => {
           {t.light}
         </button>
         <button
-          onClick={() => handleThemeChange('dark')}
+          onClick={() => setTheme('dark')}
           className={`flex-1 flex items-center justify-center py-3 rounded-xl text-sm font-medium transition-all ${
             theme === 'dark' 
               ? 'bg-white dark:bg-slate-600 shadow-md text-slate-900 dark:text-white' 

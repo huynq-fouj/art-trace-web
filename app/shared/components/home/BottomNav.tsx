@@ -1,11 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
+import useTranslate from '../../hooks/useTranslate';
 
 export const BottomNav: React.FC = () => {
-  const language = useSelector((state: RootState) => state.settings.language);
-  const t = getTranslation(language);
+  const { t } = useTranslate();
 
   return (
     <div className="fixed bottom-0 w-full h-16 bg-white dark:bg-slate-900 border-t border-slate-100 dark:border-slate-800 flex justify-around items-center pb-2 text-slate-400 dark:text-slate-500">

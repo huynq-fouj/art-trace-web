@@ -1,23 +1,12 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectFromHistory, RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
 import { ClockIcon } from '@/app/shared/components/Icons';
+import { formatDate } from '../../utils/formatDate';
+import useTranslate from '../../hooks/useTranslate';
+import useDrawHistory from '../../hooks/useDrawHistory';
 
 export const HistorySection: React.FC = () => {
-  const dispatch = useDispatch();
-  const history = useSelector((state: RootState) => state.drawing.history);
-  const language = useSelector((state: RootState) => state.settings.language);
-  const t = getTranslation(language);
-
-  const formatDate = (timestamp: number) => {
-    return new Intl.DateTimeFormat(language === 'en' ? 'en-US' : (language === 'ja' ? 'ja-JP' : 'vi-VN'), {
-      hour: '2-digit',
-      minute: '2-digit',
-      day: '2-digit',
-      month: '2-digit',
-    }).format(new Date(timestamp));
-  };
+  const { history, selectHistory } = useDrawHistory();
+  const { t, language } = useTranslate()
 
   return (
     <div className="px-4">
@@ -36,7 +25,7 @@ export const HistorySection: React.FC = () => {
           {history.map((item) => (
             <div 
               key={item.id}
-              onClick={() => dispatch(selectFromHistory(item.imageData))}
+              onClick={() => selectHistory(item)}
               className="flex items-center p-3 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl shadow-sm hover:shadow-md transition-shadow cursor-pointer"
             >
               <div className="w-16 h-16 rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-700 flex-shrink-0">
@@ -46,7 +35,7 @@ export const HistorySection: React.FC = () => {
                 <h3 className="font-semibold text-slate-700 dark:text-slate-200 text-sm truncate">{t.drawing} {item.id.slice(-4)}</h3>
                 <div className="flex items-center mt-1 text-slate-400 dark:text-slate-500 text-xs">
                   <ClockIcon className="w-3 h-3 mr-1" />
-                  <span>{formatDate(item.timestamp)}</span>
+                  <span>{formatDate(item.timestamp, language)}</span>
                 </div>
               </div>
               <div className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-50 dark:bg-slate-700 text-slate-400 dark:text-slate-300">

@@ -1,30 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
 import { SunIcon, ResizeIcon, RotateIcon, XMarkIcon } from '@/app/shared/components/Icons';
+import useCameraControllers from '../../hooks/useCameraControllers';
+import useTranslate from '../../hooks/useTranslate';
 
-export type ControlType = 'opacity' | 'scale' | 'rotate' | null;
-
-interface CameraControlsProps {
-  opacity: number;
-  setOpacity: (val: number) => void;
-  scale: number;
-  setScale: (val: number) => void;
-  rotation: number;
-  setRotation: (val: number) => void;
-  activeControl: ControlType;
-  setActiveControl: (val: ControlType) => void;
-}
-
-export const CameraControls: React.FC<CameraControlsProps> = ({
-  opacity, setOpacity,
-  scale, setScale,
-  rotation, setRotation,
-  activeControl, setActiveControl
-}) => {
-  const language = useSelector((state: RootState) => state.settings.language);
-  const t = getTranslation(language);
+export const CameraControls: React.FC = () => {
+  const { t } = useTranslate();
+  const { opacity, scale, rotation, activeControl, setOpacity, setActiveControl, setScale, setRotation } = useCameraControllers();
 
   const renderActiveControl = () => {
     switch (activeControl) {

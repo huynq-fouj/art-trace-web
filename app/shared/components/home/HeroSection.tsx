@@ -1,13 +1,11 @@
 import React, { useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setCurrentImage, RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
 import { PlusIcon } from '@/app/shared/components/Icons';
+import useTranslate from '../../hooks/useTranslate';
+import useDrawHistory from '../../hooks/useDrawHistory';
 
 export const HeroSection: React.FC = () => {
-  const dispatch = useDispatch();
-  const language = useSelector((state: RootState) => state.settings.language);
-  const t = getTranslation(language);
+  const { t } = useTranslate();
+  const { setCurrent } = useDrawHistory();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +14,7 @@ export const HeroSection: React.FC = () => {
       const reader = new FileReader();
       reader.onloadend = () => {
         const base64String = reader.result as string;
-        dispatch(setCurrentImage(base64String));
+        setCurrent(base64String);
       };
       reader.readAsDataURL(file);
     }

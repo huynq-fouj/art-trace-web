@@ -1,14 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from './shared/toolkits/store';
 import CameraCanvas from './shared/components/CameraCanvas';
 import Settings from './shared/components/Settings';
 import Home from './shared/components/Home';
+import useDrawHistory from './shared/hooks/useDrawHistory';
+import useSettings from './shared/hooks/useSettings';
 
 
 const App: React.FC = () => {
-  const { isCameraMode, isSettingsOpen } = useSelector((state: RootState) => state.drawing);
-  const theme = useSelector((state: RootState) => state.settings.theme);
+  const { isCameraMode, isSettingsOpen } = useDrawHistory();
+  const { theme } = useSettings()
 
   return (
     <div className={`${theme === 'dark' ? 'dark' : ''} h-full`}>

@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Disable pull-to-refresh on mobile */
+body {
+    overscroll-behavior-y: contain;
+    -webkit-user-select: none;
+    user-select: none;
+}

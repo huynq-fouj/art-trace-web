@@ -1,21 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { exitCameraMode, RootState } from '@/app/shared/toolkits/store';
-import { getTranslation } from '@/app/shared/translate/translations';
+import useCameraControllers from '../../hooks/useCameraControllers';
+import useTranslate from '../../hooks/useTranslate';
+import useDrawHistory from '../../hooks/useDrawHistory';
 
-interface CameraViewportProps {
-  opacity: number;
-  scale: number;
-  rotation: number;
-}
-
-export const CameraViewport: React.FC<CameraViewportProps> = ({ opacity, scale, rotation }) => {
-  const dispatch = useDispatch();
-  const currentImage = useSelector((state: RootState) => state.drawing.currentImage);
-  const language = useSelector((state: RootState) => state.settings.language);
-  const t = getTranslation(language);
+export const CameraViewport: React.FC = () => {
+  const { t } = useTranslate();
+  const { currentImage, exitCameraMode } = useDrawHistory();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const { opacity, scale, rotation } = useCameraControllers();
 
   useEffect(() => {
     let stream: MediaStream | null = null;
@@ -72,7 +65,7 @@ export const CameraViewport: React.FC<CameraViewportProps> = ({ opacity, scale, 
              <p className="text-red-400 font-bold mb-2">{t.errorCamera}</p>
              <p className="text-sm text-gray-300">{error}</p>
              <button 
-                onClick={() => dispatch(exitCameraMode())}
+                onClick={() => exitCameraMode()}
                 className="mt-4 px-4 py-2 bg-gray-700 rounded-lg text-sm hover:bg-gray-600 transition-colors"
              >
                {t.back}
