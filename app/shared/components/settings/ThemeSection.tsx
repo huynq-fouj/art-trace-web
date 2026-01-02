@@ -9,11 +9,11 @@ export const ThemeSection: React.FC = () => {
 
   return (
     <section>
-      <div className="flex items-center mb-4 text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider">
+      <div className="flex items-center mb-4 text-slate-500 dark:text-slate-400 text-sm font-semibold uppercase tracking-wider transition-colors duration-300">
         <SunIcon className="w-4 h-4 mr-2" />
         {t.theme}
       </div>
-      <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-1.5 flex shadow-inner">
+      <div className="bg-slate-50 dark:bg-slate-800 rounded-2xl p-1.5 flex shadow-inner transition-colors duration-300">
         <button
           onClick={() => setTheme('light')}
           className={`flex-1 flex items-center justify-center py-3 rounded-xl text-sm font-medium transition-all ${
