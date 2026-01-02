@@ -15,7 +15,7 @@ export const CameraViewport: React.FC = () => {
 
     const startCamera = async () => {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        // setError("Trình duyệt không hỗ trợ truy cập camera."); 
+        setError("Trình duyệt không hỗ trợ truy cập camera."); 
         return;
       }
 
@@ -35,7 +35,7 @@ export const CameraViewport: React.FC = () => {
           });
         } catch (fallbackErr) {
           console.error("Error accessing camera:", fallbackErr);
-          // setError(t.errorAccess);
+          setError(t.errorAccess);
         }
       }
 
