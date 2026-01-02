@@ -1,11 +1,11 @@
 import React from 'react';
 import { SunIcon, ResizeIcon, RotateIcon, XMarkIcon } from '@/app/shared/components/Icons';
-import useCameraControllers from '../../hooks/useCameraControllers';
+import useCameraControls from '../../hooks/useCameraControls';
 import useTranslate from '../../hooks/useTranslate';
 
 export const CameraControls: React.FC = () => {
   const { t } = useTranslate();
-  const { opacity, scale, rotation, activeControl, setOpacity, setActiveControl, setScale, setRotation } = useCameraControllers();
+  const { opacity, scale, rotation, activeControl, setOpacity, setActiveControl, setScale, setRotation } = useCameraControls();
 
   const renderActiveControl = () => {
     switch (activeControl) {

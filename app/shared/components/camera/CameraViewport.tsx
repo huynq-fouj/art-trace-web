@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import useCameraControllers from '../../hooks/useCameraControllers';
+import useCameraControls from '../../hooks/useCameraControls';
 import useTranslate from '../../hooks/useTranslate';
 import useDrawHistory from '../../hooks/useDrawHistory';
 
@@ -8,14 +8,14 @@ export const CameraViewport: React.FC = () => {
   const { currentImage, exitCameraMode } = useDrawHistory();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [error, setError] = useState<string | null>(null);
-  const { opacity, scale, rotation } = useCameraControllers();
+  const { opacity, scale, rotation } = useCameraControls();
 
   useEffect(() => {
     let stream: MediaStream | null = null;
 
     const startCamera = async () => {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        setError("Trình duyệt không hỗ trợ truy cập camera."); 
+        // setError("Trình duyệt không hỗ trợ truy cập camera."); 
         return;
       }
 
@@ -35,7 +35,7 @@ export const CameraViewport: React.FC = () => {
           });
         } catch (fallbackErr) {
           console.error("Error accessing camera:", fallbackErr);
-          setError(t.errorAccess);
+          // setError(t.errorAccess);
         }
       }
 
@@ -95,7 +95,7 @@ export const CameraViewport: React.FC = () => {
               maxWidth: '90%',
               maxHeight: '80%',
             }}
-            className="object-contain transition-transform duration-75 origin-center"
+            className="object-contain origin-center"
           />
         </div>
       )}

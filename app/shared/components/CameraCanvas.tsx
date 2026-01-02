@@ -3,6 +3,7 @@ import { CameraTopBar } from './camera/CameraTopBar';
 import { CameraViewport } from './camera/CameraViewport';
 import { CameraControls } from './camera/CameraControls';
 import useDrawHistory from '../hooks/useDrawHistory';
+import CameraControlsProvider from '../providers/CameraControlsProvider';
 
 const CameraCanvas: React.FC = () => {
   const { currentImage } = useDrawHistory();
@@ -12,8 +13,10 @@ const CameraCanvas: React.FC = () => {
   return (
     <div className="relative w-full h-full bg-black overflow-hidden flex flex-col">
       <CameraTopBar />
-      <CameraViewport />
-      <CameraControls />
+      <CameraControlsProvider>
+        <CameraViewport />
+        <CameraControls />
+      </CameraControlsProvider>
     </div>
   );
 };
